@@ -14,7 +14,8 @@ jobs:
   Build:
     runs-on: ubuntu-latest
     steps:
-      - run: |
+      - name: Print echos
+        run: |
           echo "Job triggered ${{ github.event_name }}"
           echo "Repository ${{ github.repository }}"
           echo "Branch name ${{ github.ref }}"
