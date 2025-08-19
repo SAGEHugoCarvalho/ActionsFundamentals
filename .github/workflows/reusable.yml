@@ -14,6 +14,8 @@ on:
 jobs:
   reusable_job:
     runs-on: ubuntu-latest
+    outputs:
+      time: ${{ steps.set_time.outputs.time }}
     steps:
         - name: Greet
           run: echo "Hello, ${{ inputs.name }}!"
