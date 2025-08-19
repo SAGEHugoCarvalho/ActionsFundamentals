@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  Build:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Print echos
@@ -27,14 +27,14 @@ jobs:
   testing:
     runs-on: ubuntu-latest
     if: github.event_name == 'workflow_dispatch'
-    needs: Build
+    needs: build
     environment: testing
     steps:
       - run: echo "Testing..."
   load-test:
     runs-on: ubuntu-latest
     if: github.event_name == 'workflow_dispatch'
-    needs: Build
+    needs: build
     environment: load-test
     steps:
       - run: |
@@ -42,8 +42,8 @@ jobs:
           sleep 5
   production:
     runs-on: ubuntu-latest
-    if: github.event_name == 'workflow_dispatch'
-    needs: Build
+    if: github.event.inputs.environment == 'production'
+    needs: [build, testing, load-test]
     environment:
       name: production
       url: https://github.com
